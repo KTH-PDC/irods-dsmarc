@@ -1,0 +1,53 @@
+
+This is the README file for the dsmarc utility.
+
+The dsmarc utility is a replacement for the iRODS Universal mass storage
+interface script, 'univMSSInterface.sh'. It is a simple C program which
+performs the same functions, using the TSM C API.
+
+The program accepts the MSS arguments which are:
+    syncToArch f     to copy from cache to MSS.
+    stageToCache f   to stage from MSS to cache.
+    mkdir d          to create a directory in the MSS.
+    chmod f mode     to modify ACLs in the MSS for a given
+                     directory. There is no functionality
+                     for this in TSM. It is ignored.
+    rm file          to remove a file from the MSS.
+    mv f1 f2         to rename a file in the MSS.
+                     It is not possible to rename an archive
+                     object in TSM. The file will be copied and
+                     then the old one removed
+    stat file        to do a stat on a file. Return result in iRODS
+                     format.
+Additional documentation is provided with the manual page.
+The program also gives help using the argument -h.
+
+In this directory you find:
+    README          this file.
+    Makefile        is the make file
+    dsmarc.c        The C source file for the utility.
+    dsmarc.man      Manual page for the dsmarc utility. Copy it to the
+                    manual pages directory or display it with nroff -man.
+    include         is a directory with the copy of the TSM API include
+                    files as provided with the API samples. You shuld make
+                    sure you got the correct version here.
+
+The make file contains compile-time options which could be customized.
+It accepts the following targets:
+    clean           clean up, remove objects and binaries.
+    distclean       same as clen, in this case.
+    install         move the executable under the iRODS destination.
+                    Run it as user irods.
+    uninstall       undo install.
+    dist            create distribution tarball.
+    save            creates save tarball.
+    test            run basic tests.
+    rootinstall     install root part, to run it as root.
+    rootuninstall   uninstall root part.
+
+It requires the TSM API package to be installed. Will use the library
+from that package.
+
+The TSM API should be configured with the dsm.sys and dsm.opt files in
+the API client directory, the exact same way as the TSM client.
+

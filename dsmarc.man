@@ -1,0 +1,100 @@
+.TH DSMARC "1" "2015-12-07" "TSM archive API / iRODS interface" "User Commands"
+
+.SH NAME
+dsmarc \- Universal MSS iRODS interface access for TSM archives
+
+.SH SYNOPSYS
+.B dsmarc
+.B [ \-h ]
+.B [ \-d \fIn\fR \]
+.B [ \-f ]
+.B [ \-n\ \fIn\fR \]
+.B [ \-b\ \fIblocksize\fR \]
+.B \fIfunction\fR \fIargument\fR
+
+.SH DESCRIPTION
+This program is for the iRODS Universal MSS interface.
+It also can be used to access an archive using the TSM API.
+
+.TP
+.B \-h\fR
+to print this help.
+
+.TP
+.B \-d \fIn\fR
+run with debug level n n enabled, larger number means more
+details.
+
+.TP
+.B \-f\fR
+Force actions when there is an error.
+
+.TP
+.B \-n \fIn\fR
+Limit on the number of query records returned.
+
+.TP
+.B \-o\fR
+Order multiple files by TSM restore order.
+
+.TP
+.B \fIfunction\fR
+is the operation to do, one of the followings:
+
+.RS
+
+.PP
+.B syncToArch f\fR
+to copy from cache to MSS.
+
+.PP
+.B stageToCache f \fR
+to stage from MSS to cache.
+
+.PP
+.B mkdir dir \fR
+to create a directory in the MSS.
+
+.PP
+.B chmod f mode \fR
+to modify ACLs in the MSS for a given directory.
+There is no functionality for this in TSM. It is ignored.
+
+.PP
+.B rm file \fR
+to remove a file from the MSS.
+
+.PP
+.B mv f1 f2 \fR
+to rename a file in the MSS. It is not possible to rename an archive
+object in TSM. The file will be copied and then the old one will
+be removed.
+
+.PP
+.B stat file \fR
+to do a stat on a file. Return result in iRODS format.
+
+.PP
+.B sync \fR
+synonym of syncToArch.
+
+.PP
+.B stage \fR
+synonym of stageToCache.
+
+.PP
+.B retr \fR
+retrieve multiple files. In this case the first argument is a selector
+and the second is a prefix to use for the local filenames.
+
+.PP
+.B stream f \fR
+.B upstream f \fR
+Stream from standard input and store as file F in the archive.
+
+.PP
+.B downstream f \fR
+Retrieve F from the archive and stream it on stdout.
+
+.RE
+
